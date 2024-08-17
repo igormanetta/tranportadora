@@ -1,0 +1,1691 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/motorista": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Motorista"
+        ],
+        "operationId": "listMotorista",
+        "parameters": [
+          {
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ListMotorista"
+            }
+          }
+        }
+      },
+      "post": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Motorista"
+        ],
+        "operationId": "postMotorista",
+        "parameters": [
+          {
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/InsertMotorista"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReturnID"
+            }
+          }
+        }
+      }
+    },
+    "/motorista/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Motorista"
+        ],
+        "operationId": "getMotorista",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Motorista"
+            }
+          }
+        }
+      },
+      "put": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Motorista"
+        ],
+        "operationId": "putMotorista",
+        "parameters": [
+          {
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateMotorista"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReturnID"
+            }
+          }
+        }
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Motorista"
+        ],
+        "operationId": "deleteMotorista",
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/motorista/{motoristaId}/veiculo/{veiculoId}": {
+      "patch": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Motorista"
+        ],
+        "operationId": "setMotoristaVeiculo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReturnID"
+            }
+          }
+        }
+      }
+    },
+    "/veiculo": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Veiculo"
+        ],
+        "operationId": "listVeiculo",
+        "parameters": [
+          {
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ListVeiculo"
+            }
+          }
+        }
+      },
+      "post": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Veiculo"
+        ],
+        "operationId": "postVeiculo",
+        "parameters": [
+          {
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/InsertVeiculo"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReturnID"
+            }
+          }
+        }
+      }
+    },
+    "/veiculo/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Veiculo"
+        ],
+        "operationId": "getVeiculo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Veiculo"
+            }
+          }
+        }
+      },
+      "put": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Veiculo"
+        ],
+        "operationId": "putVeiculo",
+        "parameters": [
+          {
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateVeiculo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ReturnID"
+            }
+          }
+        }
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Veiculo"
+        ],
+        "operationId": "deleteVeiculo",
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AccessMode": {
+      "type": "object",
+      "title": "AccessMode defines the access mode of a volume.",
+      "properties": {
+        "BlockVolume": {
+          "$ref": "#/definitions/TypeBlock"
+        },
+        "MountVolume": {
+          "$ref": "#/definitions/TypeMount"
+        },
+        "Scope": {
+          "$ref": "#/definitions/Scope"
+        },
+        "Sharing": {
+          "$ref": "#/definitions/SharingMode"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "AuthenticateOKBody": {
+      "description": "AuthenticateOKBody authenticate o k body",
+      "type": "object",
+      "required": [
+        "IdentityToken",
+        "Status"
+      ],
+      "properties": {
+        "IdentityToken": {
+          "description": "An opaque token used to authenticate a user after a successful login",
+          "type": "string"
+        },
+        "Status": {
+          "description": "The status of the authentication",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/registry"
+    },
+    "Availability": {
+      "type": "string",
+      "title": "Availability specifies the availability of the volume.",
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "CapacityRange": {
+      "description": "CapacityRange describes the minimum and maximum capacity a volume should be\ncreated with",
+      "type": "object",
+      "properties": {
+        "LimitBytes": {
+          "description": "LimitBytes specifies that a volume must not be bigger than this. The\nvalue of 0 indicates an unspecified maximum",
+          "type": "integer",
+          "format": "int64"
+        },
+        "RequiredBytes": {
+          "description": "RequiredBytes specifies that a volume must be at least this big. The\nvalue of 0 indicates an unspecified minimum.",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "ChangeType": {
+      "description": "Can be one of:\n\n`0`: Modified (\"C\")\n`1`: Added (\"A\")\n`2`: Deleted (\"D\")",
+      "type": "integer",
+      "format": "uint8",
+      "title": "ChangeType Kind of change",
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "ClusterVolume": {
+      "description": "ClusterVolume contains options and information specific to, and only present\non, Swarm CSI cluster volumes.",
+      "type": "object",
+      "properties": {
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ID": {
+          "description": "ID is the Swarm ID of the volume. Because cluster volumes are Swarm\nobjects, they have an ID, unlike non-cluster volumes, which only have a\nName. This ID can be used to refer to the cluster volume.",
+          "type": "string"
+        },
+        "Info": {
+          "$ref": "#/definitions/Info"
+        },
+        "PublishStatus": {
+          "description": "PublishStatus contains the status of the volume as it pertains to its\npublishing on Nodes.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PublishStatus"
+          }
+        },
+        "Spec": {
+          "$ref": "#/definitions/ClusterVolumeSpec"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "ClusterVolumeSpec": {
+      "type": "object",
+      "title": "ClusterVolumeSpec contains the spec used to create this volume.",
+      "properties": {
+        "AccessMode": {
+          "$ref": "#/definitions/AccessMode"
+        },
+        "AccessibilityRequirements": {
+          "$ref": "#/definitions/TopologyRequirement"
+        },
+        "Availability": {
+          "$ref": "#/definitions/Availability"
+        },
+        "CapacityRange": {
+          "$ref": "#/definitions/CapacityRange"
+        },
+        "Group": {
+          "description": "Group defines the volume group of this volume. Volumes belonging to the\nsame group can be referred to by group name when creating Services.\nReferring to a volume by group instructs swarm to treat volumes in that\ngroup interchangeably for the purpose of scheduling. Volumes with an\nempty string for a group technically all belong to the same, emptystring\ngroup.",
+          "type": "string"
+        },
+        "Secrets": {
+          "description": "Secrets defines Swarm Secrets that are passed to the CSI storage plugin\nwhen operating on this volume.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Secret"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "ContainerTopOKBody": {
+      "description": "ContainerTopOKBody OK response to ContainerTop operation",
+      "type": "object",
+      "required": [
+        "Processes",
+        "Titles"
+      ],
+      "properties": {
+        "Processes": {
+          "description": "Each process running in the container, where each is process\nis an array of values corresponding to the titles.",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "Titles": {
+          "description": "The ps column titles",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "ContainerUpdateOKBody": {
+      "description": "ContainerUpdateOKBody OK response to ContainerUpdate operation",
+      "type": "object",
+      "required": [
+        "Warnings"
+      ],
+      "properties": {
+        "Warnings": {
+          "description": "warnings",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "CreateOptions": {
+      "description": "Volume configuration",
+      "type": "object",
+      "title": "CreateOptions VolumeConfig",
+      "properties": {
+        "ClusterVolumeSpec": {
+          "$ref": "#/definitions/ClusterVolumeSpec"
+        },
+        "Driver": {
+          "description": "Name of the volume driver to use.",
+          "type": "string"
+        },
+        "DriverOpts": {
+          "description": "A mapping of driver options and values. These options are\npassed directly to the driver and are driver specific.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Labels": {
+          "description": "User-defined key/value metadata.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Name": {
+          "description": "The new volume's name. If not specified, Docker generates a name.",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "CreateResponse": {
+      "description": "OK response to NetworkCreate operation",
+      "type": "object",
+      "title": "CreateResponse NetworkCreateResponse",
+      "required": [
+        "Id",
+        "Warnings",
+        "Warning"
+      ],
+      "properties": {
+        "Id": {
+          "description": "The ID of the created network.",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "Warning": {
+          "description": "Warnings encountered when creating the container",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/network"
+    },
+    "DeleteResponse": {
+      "description": "DeleteResponse delete response",
+      "type": "object",
+      "properties": {
+        "Deleted": {
+          "description": "The image ID of an image that was deleted",
+          "type": "string"
+        },
+        "Untagged": {
+          "description": "The image ID of an image that was untagged",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/image"
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "title": "ErrorResponse Represents an error.",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "description": "The error message.",
+          "type": "string",
+          "x-go-name": "Message"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "FilesystemChange": {
+      "type": "object",
+      "title": "FilesystemChange Change in the container's filesystem.",
+      "required": [
+        "Kind",
+        "Path"
+      ],
+      "properties": {
+        "Kind": {
+          "$ref": "#/definitions/ChangeType"
+        },
+        "Path": {
+          "description": "Path to file or directory that has changed.",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "GraphDriverData": {
+      "description": "GraphDriverData Information about the storage driver used to store the container's and\nimage's filesystem.",
+      "type": "object",
+      "required": [
+        "Data",
+        "Name"
+      ],
+      "properties": {
+        "Data": {
+          "description": "Low-level storage metadata, provided as key/value pairs.\n\nThis information is driver-specific, and depends on the storage-driver\nin use, and should be used for informational purposes only.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Name": {
+          "description": "Name of the storage driver.",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "HistoryResponseItem": {
+      "description": "HistoryResponseItem individual image layer information in response to ImageHistory operation",
+      "type": "object",
+      "required": [
+        "Comment",
+        "Created",
+        "CreatedBy",
+        "Id",
+        "Size",
+        "Tags"
+      ],
+      "properties": {
+        "Comment": {
+          "description": "comment",
+          "type": "string"
+        },
+        "Created": {
+          "description": "created",
+          "type": "integer",
+          "format": "int64"
+        },
+        "CreatedBy": {
+          "description": "created by",
+          "type": "string"
+        },
+        "Id": {
+          "description": "Id",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "Size": {
+          "description": "size",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Tags": {
+          "description": "tags",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/image"
+    },
+    "IdResponse": {
+      "description": "IDResponse Response to an API call that returns just an Id",
+      "type": "object",
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "description": "The id of the newly created object.",
+          "type": "string",
+          "x-go-name": "ID"
+        }
+      },
+      "x-go-name": "IDResponse",
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "Info": {
+      "description": "Info contains information about the Volume as a whole as provided by\nthe CSI storage plugin.",
+      "type": "object",
+      "properties": {
+        "AccessibleTopology": {
+          "description": "AccessibleTopolgoy is the topology this volume is actually accessible\nfrom.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Topology"
+          }
+        },
+        "CapacityBytes": {
+          "description": "CapacityBytes is the capacity of the volume in bytes. A value of 0\nindicates that the capacity is unknown.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "VolumeContext": {
+          "description": "VolumeContext is the context originating from the CSI storage plugin\nwhen the Volume is created.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "VolumeID": {
+          "description": "VolumeID is the ID of the Volume as seen by the CSI storage plugin. This\nis distinct from the Volume's Swarm ID, which is the ID used by all of\nthe Docker Engine to refer to the Volume. If this field is blank, then\nthe Volume has not been successfully created yet.",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "InsertMotorista": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "x-go-name": "Nome"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "InsertVeiculo": {
+      "type": "object",
+      "properties": {
+        "placa": {
+          "type": "string",
+          "x-go-name": "Placa"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "ListMotorista": {
+      "type": "object",
+      "properties": {
+        "Data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Motorista"
+          }
+        },
+        "Pagination": {
+          "$ref": "#/definitions/PaginationResponse"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "ListResponse": {
+      "description": "Volume list response",
+      "type": "object",
+      "title": "ListResponse VolumeListResponse",
+      "properties": {
+        "Volumes": {
+          "description": "List of volumes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Volume"
+          }
+        },
+        "Warnings": {
+          "description": "Warnings that occurred when fetching the list of volumes.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "ListVeiculo": {
+      "type": "object",
+      "properties": {
+        "Data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Veiculo"
+          }
+        },
+        "Pagination": {
+          "$ref": "#/definitions/PaginationResponse"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "Meta": {
+      "type": "object",
+      "title": "Meta is a base object inherited by most of the other once.",
+      "properties": {
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Version": {
+          "$ref": "#/definitions/Version"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/swarm"
+    },
+    "Motorista": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "nome": {
+          "type": "string",
+          "x-go-name": "Nome"
+        },
+        "veiculo": {
+          "$ref": "#/definitions/Veiculo"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "PaginationRequest": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Limit"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Page"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "PaginationResponse": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CurrentPage"
+        },
+        "record_per_page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "RecordPerPage"
+        },
+        "total_page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TotalPage"
+        },
+        "total_record": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TotalRecord"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "Plugin": {
+      "description": "Plugin A plugin for the Engine API",
+      "type": "object",
+      "required": [
+        "Config",
+        "Enabled",
+        "Name",
+        "Settings"
+      ],
+      "properties": {
+        "Config": {
+          "$ref": "#/definitions/PluginConfig"
+        },
+        "Enabled": {
+          "description": "True if the plugin is running. False if the plugin is not running, only installed.",
+          "type": "boolean"
+        },
+        "Id": {
+          "description": "Id",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "PluginReference": {
+          "description": "plugin remote reference used to push/pull the plugin",
+          "type": "string"
+        },
+        "Settings": {
+          "$ref": "#/definitions/PluginSettings"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfig": {
+      "type": "object",
+      "title": "PluginConfig The config of a plugin.",
+      "required": [
+        "Args",
+        "Description",
+        "Documentation",
+        "Entrypoint",
+        "Env",
+        "Interface",
+        "IpcHost",
+        "Linux",
+        "Mounts",
+        "Network",
+        "PidHost",
+        "PropagatedMount",
+        "WorkDir"
+      ],
+      "properties": {
+        "Args": {
+          "$ref": "#/definitions/PluginConfigArgs"
+        },
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "DockerVersion": {
+          "description": "Docker Version used to create the plugin",
+          "type": "string"
+        },
+        "Documentation": {
+          "description": "documentation",
+          "type": "string"
+        },
+        "Entrypoint": {
+          "description": "entrypoint",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Env": {
+          "description": "env",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginEnv"
+          }
+        },
+        "Interface": {
+          "$ref": "#/definitions/PluginConfigInterface"
+        },
+        "IpcHost": {
+          "description": "ipc host",
+          "type": "boolean"
+        },
+        "Linux": {
+          "$ref": "#/definitions/PluginConfigLinux"
+        },
+        "Mounts": {
+          "description": "mounts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginMount"
+          }
+        },
+        "Network": {
+          "$ref": "#/definitions/PluginConfigNetwork"
+        },
+        "PidHost": {
+          "description": "pid host",
+          "type": "boolean"
+        },
+        "PropagatedMount": {
+          "description": "propagated mount",
+          "type": "string"
+        },
+        "User": {
+          "$ref": "#/definitions/PluginConfigUser"
+        },
+        "WorkDir": {
+          "description": "work dir",
+          "type": "string"
+        },
+        "rootfs": {
+          "$ref": "#/definitions/PluginConfigRootfs"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigArgs": {
+      "description": "PluginConfigArgs plugin config args",
+      "type": "object",
+      "required": [
+        "Description",
+        "Name",
+        "Settable",
+        "Value"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Value": {
+          "description": "value",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigInterface": {
+      "description": "PluginConfigInterface The interface between Docker and the plugin",
+      "type": "object",
+      "required": [
+        "Socket",
+        "Types"
+      ],
+      "properties": {
+        "ProtocolScheme": {
+          "description": "Protocol to use for clients connecting to the plugin.",
+          "type": "string"
+        },
+        "Socket": {
+          "description": "socket",
+          "type": "string"
+        },
+        "Types": {
+          "description": "types",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginInterfaceType"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigLinux": {
+      "description": "PluginConfigLinux plugin config linux",
+      "type": "object",
+      "required": [
+        "AllowAllDevices",
+        "Capabilities",
+        "Devices"
+      ],
+      "properties": {
+        "AllowAllDevices": {
+          "description": "allow all devices",
+          "type": "boolean"
+        },
+        "Capabilities": {
+          "description": "capabilities",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Devices": {
+          "description": "devices",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginDevice"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigNetwork": {
+      "description": "PluginConfigNetwork plugin config network",
+      "type": "object",
+      "required": [
+        "Type"
+      ],
+      "properties": {
+        "Type": {
+          "description": "type",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigRootfs": {
+      "description": "PluginConfigRootfs plugin config rootfs",
+      "type": "object",
+      "properties": {
+        "diff_ids": {
+          "description": "diff ids",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "DiffIds"
+        },
+        "type": {
+          "description": "type",
+          "type": "string",
+          "x-go-name": "Type"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginConfigUser": {
+      "description": "PluginConfigUser plugin config user",
+      "type": "object",
+      "properties": {
+        "GID": {
+          "description": "g ID",
+          "type": "integer",
+          "format": "uint32"
+        },
+        "UID": {
+          "description": "UID",
+          "type": "integer",
+          "format": "uint32"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginDevice": {
+      "description": "PluginDevice plugin device",
+      "type": "object",
+      "required": [
+        "Description",
+        "Name",
+        "Path",
+        "Settable"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Path": {
+          "description": "path",
+          "type": "string"
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginEnv": {
+      "description": "PluginEnv plugin env",
+      "type": "object",
+      "required": [
+        "Description",
+        "Name",
+        "Settable",
+        "Value"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Value": {
+          "description": "value",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginInterfaceType": {
+      "description": "PluginInterfaceType plugin interface type",
+      "type": "object",
+      "required": [
+        "Capability",
+        "Prefix",
+        "Version"
+      ],
+      "properties": {
+        "Capability": {
+          "description": "capability",
+          "type": "string"
+        },
+        "Prefix": {
+          "description": "prefix",
+          "type": "string"
+        },
+        "Version": {
+          "description": "version",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginMount": {
+      "description": "PluginMount plugin mount",
+      "type": "object",
+      "required": [
+        "Description",
+        "Destination",
+        "Name",
+        "Options",
+        "Settable",
+        "Source",
+        "Type"
+      ],
+      "properties": {
+        "Description": {
+          "description": "description",
+          "type": "string"
+        },
+        "Destination": {
+          "description": "destination",
+          "type": "string"
+        },
+        "Name": {
+          "description": "name",
+          "type": "string"
+        },
+        "Options": {
+          "description": "options",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Settable": {
+          "description": "settable",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Source": {
+          "description": "source",
+          "type": "string"
+        },
+        "Type": {
+          "description": "type",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PluginSettings": {
+      "type": "object",
+      "title": "PluginSettings Settings that can be modified by users.",
+      "required": [
+        "Args",
+        "Devices",
+        "Env",
+        "Mounts"
+      ],
+      "properties": {
+        "Args": {
+          "description": "args",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Devices": {
+          "description": "devices",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginDevice"
+          }
+        },
+        "Env": {
+          "description": "env",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Mounts": {
+          "description": "mounts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PluginMount"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "Port": {
+      "description": "Port An open port on a container",
+      "type": "object",
+      "required": [
+        "PrivatePort",
+        "Type"
+      ],
+      "properties": {
+        "IP": {
+          "description": "Host IP address that the container's port is mapped to",
+          "type": "string"
+        },
+        "PrivatePort": {
+          "description": "Port on the container",
+          "type": "integer",
+          "format": "uint16"
+        },
+        "PublicPort": {
+          "description": "Port exposed on the host",
+          "type": "integer",
+          "format": "uint16"
+        },
+        "Type": {
+          "description": "type",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
+    },
+    "PublishState": {
+      "description": "PublishState represents the state of a Volume as it pertains to its\nuse on a particular Node.",
+      "type": "string",
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "PublishStatus": {
+      "description": "PublishStatus represents the status of the volume as published to an\nindividual node",
+      "type": "object",
+      "properties": {
+        "NodeID": {
+          "description": "NodeID is the ID of the swarm node this Volume is published to.",
+          "type": "string"
+        },
+        "PublishContext": {
+          "description": "PublishContext is the PublishContext returned by the CSI plugin when\na volume is published.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "State": {
+          "$ref": "#/definitions/PublishState"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "ReturnID": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "x-go-name": "ID"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "Scope": {
+      "description": "Scope defines the Scope of a Cluster Volume. This is how many nodes a\nVolume can be accessed simultaneously on.",
+      "type": "string",
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "SearchMotorista": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Limit"
+        },
+        "nome": {
+          "type": "string",
+          "x-go-name": "Nome"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Page"
+        },
+        "veiculo": {
+          "$ref": "#/definitions/Veiculo"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "SearchVeiculo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Limit"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Page"
+        },
+        "placa": {
+          "type": "string",
+          "x-go-name": "Placa"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "Secret": {
+      "description": "Secret represents a Swarm Secret value that must be passed to the CSI\nstorage plugin when operating on this Volume. It represents one key-value\npair of possibly many.",
+      "type": "object",
+      "properties": {
+        "Key": {
+          "description": "Key is the name of the key of the key-value pair passed to the plugin.",
+          "type": "string"
+        },
+        "Secret": {
+          "description": "Secret is the swarm Secret object from which to read data. This can be a\nSecret name or ID. The Secret data is retrieved by Swarm and used as the\nvalue of the key-value pair passed to the plugin.",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "ServiceCreateResponse": {
+      "description": "ServiceCreateResponse contains the information returned to a client on the\ncreation of a new service.",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "The ID of the created service.",
+          "type": "string"
+        },
+        "Warnings": {
+          "description": "Optional warning message.\n\nFIXME(thaJeztah): this should have \"omitempty\" in the generated type.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/swarm"
+    },
+    "ServiceUpdateResponse": {
+      "description": "ServiceUpdateResponse service update response",
+      "type": "object",
+      "properties": {
+        "Warnings": {
+          "description": "Optional warning messages",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/swarm"
+    },
+    "SharingMode": {
+      "description": "SharingMode defines the Sharing of a Cluster Volume. This is how Tasks using a\nVolume at the same time can use it.",
+      "type": "string",
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "Summary": {
+      "description": "Summary summary",
+      "type": "object",
+      "required": [
+        "Containers",
+        "Created",
+        "Id",
+        "Labels",
+        "ParentId",
+        "RepoDigests",
+        "RepoTags",
+        "SharedSize",
+        "Size"
+      ],
+      "properties": {
+        "Containers": {
+          "description": "Number of containers using this image. Includes both stopped and running\ncontainers.\n\nThis size is not calculated by default, and depends on which API endpoint\nis used. `-1` indicates that the value has not been set / calculated.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Created": {
+          "description": "Date and time at which the image was created as a Unix timestamp\n(number of seconds sinds EPOCH).",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Id": {
+          "description": "ID is the content-addressable ID of an image.\n\nThis identifier is a content-addressable digest calculated from the\nimage's configuration (which includes the digests of layers used by\nthe image).\n\nNote that this digest differs from the `RepoDigests` below, which\nholds digests of image manifests that reference the image.",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "Labels": {
+          "description": "User-defined key/value metadata.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "ParentId": {
+          "description": "ID of the parent image.\n\nDepending on how the image was created, this field may be empty and\nis only set for images that were built/created locally. This field\nis empty if the image was pulled from an image registry.",
+          "type": "string",
+          "x-go-name": "ParentID"
+        },
+        "RepoDigests": {
+          "description": "List of content-addressable digests of locally available image manifests\nthat the image is referenced from. Multiple manifests can refer to the\nsame image.\n\nThese digests are usually only available if the image was either pulled\nfrom a registry, or if the image was pushed to a registry, which is when\nthe manifest is generated and its digest calculated.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RepoTags": {
+          "description": "List of image names/tags in the local image cache that reference this\nimage.\n\nMultiple image tags can refer to the same image, and this list may be\nempty if no tags reference the image, in which case the image is\n\"untagged\", in which case it can still be referenced by its ID.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "SharedSize": {
+          "description": "Total size of image layers that are shared between this image and other\nimages.\n\nThis size is not calculated by default. `-1` indicates that the value\nhas not been set / calculated.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Size": {
+          "description": "Total size of the image including all layers it is composed of.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "VirtualSize": {
+          "description": "Total size of the image including all layers it is composed of.\n\nDeprecated: this field is omitted in API v1.44, but kept for backward compatibility. Use Size instead.",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/image"
+    },
+    "Topology": {
+      "description": "This description is taken verbatim from the CSI Spec:\n\nA topological domain is a sub-division of a cluster, like \"region\",\n\"zone\", \"rack\", etc.\nA topological segment is a specific instance of a topological domain,\nlike \"zone3\", \"rack3\", etc.\nFor example {\"com.company/zone\": \"Z1\", \"com.company/rack\": \"R3\"}\nValid keys have two segments: an OPTIONAL prefix and name, separated\nby a slash (/), for example: \"com.company.example/zone\".\nThe key name segment is REQUIRED. The prefix is OPTIONAL.\nThe key name MUST be 63 characters or less, begin and end with an\nalphanumeric character ([a-z0-9A-Z]), and contain only dashes (-),\nunderscores (_), dots (.), or alphanumerics in between, for example\n\"zone\".\nThe key prefix MUST be 63 characters or less, begin and end with a\nlower-case alphanumeric character ([a-z0-9]), contain only\ndashes (-), dots (.), or lower-case alphanumerics in between, and\nfollow domain name notation format\n(https://tools.ietf.org/html/rfc1035#section-2.3.1).\nThe key prefix SHOULD include the plugin's host company name and/or\nthe plugin name, to minimize the possibility of collisions with keys\nfrom other plugins.\nIf a key prefix is specified, it MUST be identical across all\ntopology keys returned by the SP (across all RPCs).\nKeys MUST be case-insensitive. Meaning the keys \"Zone\" and \"zone\"\nMUST not both exist.\nEach value (topological segment) MUST contain 1 or more strings.\nEach string MUST be 63 characters or less and begin and end with an\nalphanumeric character with '-', '_', '.', or alphanumerics in\nbetween.",
+      "type": "object",
+      "title": "Topology is a map of topological domains to topological segments.",
+      "properties": {
+        "Segments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "TopologyRequirement": {
+      "description": "TopologyRequirement expresses the user's requirements for a volume's\naccessible topology.",
+      "type": "object",
+      "properties": {
+        "Preferred": {
+          "description": "Preferred is a list of Topologies that the volume should attempt to be\nprovisioned in.\n\nTaken from the CSI spec:\n\nSpecifies the list of topologies the CO would prefer the volume to\nbe provisioned in.\n\nThis field is OPTIONAL. If TopologyRequirement is specified either\nrequisite or preferred or both MUST be specified.\n\nAn SP MUST attempt to make the provisioned volume available using\nthe preferred topologies in order from first to last.\n\nIf requisite is specified, all topologies in preferred list MUST\nalso be present in the list of requisite topologies.\n\nIf the SP is unable to make the provisioned volume available\nfrom any of the preferred topologies, the SP MAY choose a topology\nfrom the list of requisite topologies.\nIf the list of requisite topologies is not specified, then the SP\nMAY choose from the list of all possible topologies.\nIf the list of requisite topologies is specified and the SP is\nunable to make the provisioned volume available from any of the\nrequisite topologies it MUST fail the CreateVolume call.\n\nExample 1:\nGiven a volume should be accessible from a single zone, and\nrequisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"},\n{\"region\": \"R1\", \"zone\": \"Z3\"}\npreferred =\n{\"region\": \"R1\", \"zone\": \"Z3\"}\nthen the SP SHOULD first attempt to make the provisioned volume\navailable from \"zone\" \"Z3\" in the \"region\" \"R1\" and fall back to\n\"zone\" \"Z2\" in the \"region\" \"R1\" if that is not possible.\n\nExample 2:\nGiven a volume should be accessible from a single zone, and\nrequisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"},\n{\"region\": \"R1\", \"zone\": \"Z3\"},\n{\"region\": \"R1\", \"zone\": \"Z4\"},\n{\"region\": \"R1\", \"zone\": \"Z5\"}\npreferred =\n{\"region\": \"R1\", \"zone\": \"Z4\"},\n{\"region\": \"R1\", \"zone\": \"Z2\"}\nthen the SP SHOULD first attempt to make the provisioned volume\naccessible from \"zone\" \"Z4\" in the \"region\" \"R1\" and fall back to\n\"zone\" \"Z2\" in the \"region\" \"R1\" if that is not possible. If that\nis not possible, the SP may choose between either the \"zone\"\n\"Z3\" or \"Z5\" in the \"region\" \"R1\".\n\nExample 3:\nGiven a volume should be accessible from TWO zones (because an\nopaque parameter in CreateVolumeRequest, for example, specifies\nthe volume is accessible from two zones, aka synchronously\nreplicated), and\nrequisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"},\n{\"region\": \"R1\", \"zone\": \"Z3\"},\n{\"region\": \"R1\", \"zone\": \"Z4\"},\n{\"region\": \"R1\", \"zone\": \"Z5\"}\npreferred =\n{\"region\": \"R1\", \"zone\": \"Z5\"},\n{\"region\": \"R1\", \"zone\": \"Z3\"}\nthen the SP SHOULD first attempt to make the provisioned volume\naccessible from the combination of the two \"zones\" \"Z5\" and \"Z3\" in\nthe \"region\" \"R1\". If that's not possible, it should fall back to\na combination of \"Z5\" and other possibilities from the list of\nrequisite. If that's not possible, it should fall back  to a\ncombination of \"Z3\" and other possibilities from the list of\nrequisite. If that's not possible, it should fall back  to a\ncombination of other possibilities from the list of requisite.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Topology"
+          }
+        },
+        "Requisite": {
+          "description": "Requisite specifies a list of Topologies, at least one of which the\nvolume must be accessible from.\n\nTaken verbatim from the CSI Spec:\n\nSpecifies the list of topologies the provisioned volume MUST be\naccessible from.\nThis field is OPTIONAL. If TopologyRequirement is specified either\nrequisite or preferred or both MUST be specified.\n\nIf requisite is specified, the provisioned volume MUST be\naccessible from at least one of the requisite topologies.\n\nGiven\nx = number of topologies provisioned volume is accessible from\nn = number of requisite topologies\nThe CO MUST ensure n \u003e= 1. The SP MUST ensure x \u003e= 1\nIf x==n, then the SP MUST make the provisioned volume available to\nall topologies from the list of requisite topologies. If it is\nunable to do so, the SP MUST fail the CreateVolume call.\nFor example, if a volume should be accessible from a single zone,\nand requisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"}\nthen the provisioned volume MUST be accessible from the \"region\"\n\"R1\" and the \"zone\" \"Z2\".\nSimilarly, if a volume should be accessible from two zones, and\nrequisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"},\n{\"region\": \"R1\", \"zone\": \"Z3\"}\nthen the provisioned volume MUST be accessible from the \"region\"\n\"R1\" and both \"zone\" \"Z2\" and \"zone\" \"Z3\".\n\nIf x\u003cn, then the SP SHALL choose x unique topologies from the list\nof requisite topologies. If it is unable to do so, the SP MUST fail\nthe CreateVolume call.\nFor example, if a volume should be accessible from a single zone,\nand requisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"},\n{\"region\": \"R1\", \"zone\": \"Z3\"}\nthen the SP may choose to make the provisioned volume available in\neither the \"zone\" \"Z2\" or the \"zone\" \"Z3\" in the \"region\" \"R1\".\nSimilarly, if a volume should be accessible from two zones, and\nrequisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"},\n{\"region\": \"R1\", \"zone\": \"Z3\"},\n{\"region\": \"R1\", \"zone\": \"Z4\"}\nthen the provisioned volume MUST be accessible from any combination\nof two unique topologies: e.g. \"R1/Z2\" and \"R1/Z3\", or \"R1/Z2\" and\n\"R1/Z4\", or \"R1/Z3\" and \"R1/Z4\".\n\nIf x\u003en, then the SP MUST make the provisioned volume available from\nall topologies from the list of requisite topologies and MAY choose\nthe remaining x-n unique topologies from the list of all possible\ntopologies. If it is unable to do so, the SP MUST fail the\nCreateVolume call.\nFor example, if a volume should be accessible from two zones, and\nrequisite =\n{\"region\": \"R1\", \"zone\": \"Z2\"}\nthen the provisioned volume MUST be accessible from the \"region\"\n\"R1\" and the \"zone\" \"Z2\" and the SP may select the second zone\nindependently, e.g. \"R1/Z4\".",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Topology"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "TypeBlock": {
+      "description": "Intentionally empty.",
+      "type": "object",
+      "title": "TypeBlock defines options for using a volume as a block-type volume.",
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "TypeMount": {
+      "description": "TypeMount contains options for using a volume as a Mount-type\nvolume.",
+      "type": "object",
+      "properties": {
+        "FsType": {
+          "description": "FsType specifies the filesystem type for the mount volume. Optional.",
+          "type": "string"
+        },
+        "MountFlags": {
+          "description": "MountFlags defines flags to pass when mounting the volume. Optional.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "UpdateMotorista": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "x-go-name": "Nome"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "UpdateVeiculo": {
+      "type": "object",
+      "properties": {
+        "placa": {
+          "type": "string",
+          "x-go-name": "Placa"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "UsageData": {
+      "description": "UsageData Usage details about the volume. This information is used by the\n`GET /system/df` endpoint, and omitted in other endpoints.",
+      "type": "object",
+      "required": [
+        "RefCount",
+        "Size"
+      ],
+      "properties": {
+        "RefCount": {
+          "description": "The number of containers referencing this volume. This field\nis set to `-1` if the reference-count is not available.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "Size": {
+          "description": "Amount of disk space used by the volume (in bytes). This information\nis only available for volumes created with the `\"local\"` volume\ndriver. For volumes created with other volume drivers, this field\nis set to `-1` (\"not available\")",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "Veiculo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "placa": {
+          "type": "string",
+          "x-go-name": "Placa"
+        }
+      },
+      "x-go-package": "transportadora/models"
+    },
+    "Version": {
+      "type": "object",
+      "title": "Version represents the internal object version.",
+      "properties": {
+        "Index": {
+          "type": "integer",
+          "format": "uint64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/swarm"
+    },
+    "Volume": {
+      "description": "Volume volume",
+      "type": "object",
+      "required": [
+        "Driver",
+        "Labels",
+        "Mountpoint",
+        "Name",
+        "Options",
+        "Scope"
+      ],
+      "properties": {
+        "ClusterVolume": {
+          "$ref": "#/definitions/ClusterVolume"
+        },
+        "CreatedAt": {
+          "description": "Date/Time the volume was created.",
+          "type": "string"
+        },
+        "Driver": {
+          "description": "Name of the volume driver used by the volume.",
+          "type": "string"
+        },
+        "Labels": {
+          "description": "User-defined key/value metadata.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Mountpoint": {
+          "description": "Mount path of the volume on the host.",
+          "type": "string"
+        },
+        "Name": {
+          "description": "Name of the volume.",
+          "type": "string"
+        },
+        "Options": {
+          "description": "The driver specific options used when creating the volume.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Scope": {
+          "description": "The level at which the volume exists. Either `global` for cluster-wide,\nor `local` for machine level.",
+          "type": "string"
+        },
+        "Status": {
+          "description": "Low-level details about the volume, provided by the volume driver.\nDetails are returned as a map with key/value pairs:\n`{\"key\":\"value\",\"key2\":\"value2\"}`.\n\nThe `Status` field is optional, and is omitted if the volume driver\ndoes not support this feature.",
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "UsageData": {
+          "$ref": "#/definitions/UsageData"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/volume"
+    },
+    "WaitExitError": {
+      "description": "WaitExitError container waiting error, if any",
+      "type": "object",
+      "properties": {
+        "Message": {
+          "description": "Details of an error",
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    },
+    "WaitResponse": {
+      "description": "OK response to ContainerWait operation",
+      "type": "object",
+      "title": "WaitResponse ContainerWaitResponse",
+      "required": [
+        "StatusCode"
+      ],
+      "properties": {
+        "Error": {
+          "$ref": "#/definitions/WaitExitError"
+        },
+        "StatusCode": {
+          "description": "Exit code of the container",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types/container"
+    }
+  }
+}

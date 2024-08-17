@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - ${DATABASE_PORT:-5432}:5432
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - dbpg:/var/lib/postgresql/data
+    networks:
+      - backend
+  service:
+    image: transportadora
+    container_name: transportadora
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: db
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
+    depends_on:
+      - db
+    networks:
+      - backend
+
+volumes:
+  dbpg:
+    driver: local
+networks:
+  backend:
+    driver: bridge
