@@ -33,7 +33,7 @@ func TestHandleInsertVeiculo(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 	})
 	require.NoError(t, err)
@@ -54,9 +54,15 @@ func TestHandleInsertVeiculoError(t *testing.T) {
 		require.NoError(t, err)
 		body := tests.ByteToReadCloser(jsonData)
 
-		dto := models.InsertVeiculo{}
-		err = controller.UnmarshalAndValidate(body, &dto)
-		require.Error(t, err)
+		req := httptest.NewRequest("POST", "/veiculo", body)
+		w := httptest.NewRecorder()
+
+		c.API.R.ServeHTTP(w, req)
+
+		res := w.Result()
+		if res.StatusCode != http.StatusBadRequest {
+			t.Errorf("expected status bad request; got %v", res.Status)
+		}
 	})
 	require.NoError(t, err)
 
@@ -83,7 +89,7 @@ func TestHandleUpdateVeiculo(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnID := models.ReturnID{}
@@ -133,7 +139,7 @@ func TestHandleDeleteVeiculo(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnID := models.ReturnID{}
@@ -147,7 +153,7 @@ func TestHandleDeleteVeiculo(t *testing.T) {
 
 		res = w.Result()
 		if res.StatusCode != http.StatusNoContent {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status no content; got %v", res.Status)
 		}
 	})
 	require.NoError(t, err)
@@ -175,7 +181,7 @@ func TestHandleGetVeiculo(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnID := models.ReturnID{}

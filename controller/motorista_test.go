@@ -33,7 +33,7 @@ func TestHandleInsertMotorista(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 	})
 	require.NoError(t, err)
@@ -52,9 +52,15 @@ func TestHandleInsertMotoristaError(t *testing.T) {
 		require.NoError(t, err)
 		body := tests.ByteToReadCloser(jsonData)
 
-		dto := models.InsertMotorista{}
-		err = controller.UnmarshalAndValidate(body, &dto)
-		require.Error(t, err)
+		req := httptest.NewRequest("POST", "/motorista", body)
+		w := httptest.NewRecorder()
+
+		c.API.R.ServeHTTP(w, req)
+
+		res := w.Result()
+		if res.StatusCode != http.StatusBadRequest {
+			t.Errorf("expected status bad request; got %v", res.Status)
+		}
 	})
 	require.NoError(t, err)
 }
@@ -79,7 +85,7 @@ func TestHandleUpdateMotorista(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnID := models.ReturnID{}
@@ -127,7 +133,7 @@ func TestHandleDeleteMotorista(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnID := models.ReturnID{}
@@ -141,7 +147,7 @@ func TestHandleDeleteMotorista(t *testing.T) {
 
 		res = w.Result()
 		if res.StatusCode != http.StatusNoContent {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status no content; got %v", res.Status)
 		}
 	})
 	require.NoError(t, err)
@@ -167,7 +173,7 @@ func TestHandleGetMotorista(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnID := models.ReturnID{}
@@ -225,7 +231,7 @@ func TestHandleSetMotoristaVeiculo(t *testing.T) {
 
 		res := w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnID := models.ReturnID{}
@@ -247,7 +253,7 @@ func TestHandleSetMotoristaVeiculo(t *testing.T) {
 
 		res = w.Result()
 		if res.StatusCode != http.StatusCreated {
-			t.Errorf("expected status OK; got %v", res.Status)
+			t.Errorf("expected status created; got %v", res.Status)
 		}
 
 		returnIDVeiculo := models.ReturnID{}

@@ -23,7 +23,7 @@ func NewMotorista(api *API, service services.Motorista) *Motorista {
 	}
 }
 
-func (c *Motorista) HandleInsertMotorista(w http.ResponseWriter, r *http.Request) {
+func (c *Motorista) handleInsertMotorista(w http.ResponseWriter, r *http.Request) {
 	var dto models.InsertMotorista
 	if err := UnmarshalAndValidate(r.Body, &dto); err != nil {
 		BadRequestResponse(w, r, err)
@@ -43,7 +43,7 @@ func (c *Motorista) HandleInsertMotorista(w http.ResponseWriter, r *http.Request
 	CreatedResponse(w, r, returnValue)
 }
 
-func (c *Motorista) HandleUpdateMotorista(w http.ResponseWriter, r *http.Request) {
+func (c *Motorista) handleUpdateMotorista(w http.ResponseWriter, r *http.Request) {
 	rawID := chi.URLParam(r, "id")
 	if rawID == "" {
 		BadRequestResponse(w, r, errors.New("missing id"))
@@ -75,7 +75,7 @@ func (c *Motorista) HandleUpdateMotorista(w http.ResponseWriter, r *http.Request
 	OkResponse(w, r, returnValue)
 }
 
-func (c *Motorista) HandleDeleteMotorista(w http.ResponseWriter, r *http.Request) {
+func (c *Motorista) handleDeleteMotorista(w http.ResponseWriter, r *http.Request) {
 	rawID := chi.URLParam(r, "id")
 	if rawID == "" {
 		BadRequestResponse(w, r, errors.New("missing id"))
@@ -96,7 +96,7 @@ func (c *Motorista) HandleDeleteMotorista(w http.ResponseWriter, r *http.Request
 	NoContentResponse(w, r)
 }
 
-func (c *Motorista) HandleGetMotorista(w http.ResponseWriter, r *http.Request) {
+func (c *Motorista) handleGetMotorista(w http.ResponseWriter, r *http.Request) {
 	rawID := chi.URLParam(r, "id")
 	if rawID == "" {
 		BadRequestResponse(w, r, errors.New("missing id"))
@@ -118,7 +118,7 @@ func (c *Motorista) HandleGetMotorista(w http.ResponseWriter, r *http.Request) {
 	OkResponse(w, r, motorista)
 }
 
-func (c *Motorista) HandleListMotoristas(w http.ResponseWriter, r *http.Request) {
+func (c *Motorista) handleListMotoristas(w http.ResponseWriter, r *http.Request) {
 	var dto models.SearchMotorista
 
 	err := schema.NewDecoder().Decode(&dto, r.URL.Query())
@@ -136,7 +136,7 @@ func (c *Motorista) HandleListMotoristas(w http.ResponseWriter, r *http.Request)
 	OkResponse(w, r, listMotorista)
 }
 
-func (c *Motorista) HandleSetMotoristaVeiculo(w http.ResponseWriter, r *http.Request) {
+func (c *Motorista) handleSetMotoristaVeiculo(w http.ResponseWriter, r *http.Request) {
 	rawMotoristaID := chi.URLParam(r, "motoristaID")
 	if rawMotoristaID == "" {
 		BadRequestResponse(w, r, errors.New("missing motoristaID"))
@@ -175,12 +175,12 @@ func (c *Motorista) HandleSetMotoristaVeiculo(w http.ResponseWriter, r *http.Req
 }
 
 func (c *Motorista) Routes() {
-	c.API.R.Post("/motorista", c.HandleInsertMotorista)
-	c.API.R.Put("/motorista/{id}", c.HandleUpdateMotorista)
-	c.API.R.Delete("/motorista/{id}", c.HandleDeleteMotorista)
+	c.API.R.Post("/motorista", c.handleInsertMotorista)
+	c.API.R.Put("/motorista/{id}", c.handleUpdateMotorista)
+	c.API.R.Delete("/motorista/{id}", c.handleDeleteMotorista)
 
-	c.API.R.Get("/motorista/{id}", c.HandleGetMotorista)
-	c.API.R.Get("/motorista", c.HandleListMotoristas)
+	c.API.R.Get("/motorista/{id}", c.handleGetMotorista)
+	c.API.R.Get("/motorista", c.handleListMotoristas)
 
-	c.API.R.Patch("/motorista/{motoristaID}/veiculo/{veiculoID}", c.HandleSetMotoristaVeiculo)
+	c.API.R.Patch("/motorista/{motoristaID}/veiculo/{veiculoID}", c.handleSetMotoristaVeiculo)
 }

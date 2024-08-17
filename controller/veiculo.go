@@ -23,7 +23,7 @@ func NewVeiculo(api *API, service services.Veiculo) *Veiculo {
 	}
 }
 
-func (c *Veiculo) HandleInsertVeiculo(w http.ResponseWriter, r *http.Request) {
+func (c *Veiculo) handleInsertVeiculo(w http.ResponseWriter, r *http.Request) {
 	var dto models.InsertVeiculo
 	if err := UnmarshalAndValidate(r.Body, &dto); err != nil {
 		BadRequestResponse(w, r, err)
@@ -43,7 +43,7 @@ func (c *Veiculo) HandleInsertVeiculo(w http.ResponseWriter, r *http.Request) {
 	CreatedResponse(w, r, returnValue)
 }
 
-func (c *Veiculo) HandleUpdateVeiculo(w http.ResponseWriter, r *http.Request) {
+func (c *Veiculo) handleUpdateVeiculo(w http.ResponseWriter, r *http.Request) {
 	rawID := chi.URLParam(r, "id")
 	if rawID == "" {
 		BadRequestResponse(w, r, errors.New("missing id"))
@@ -75,7 +75,7 @@ func (c *Veiculo) HandleUpdateVeiculo(w http.ResponseWriter, r *http.Request) {
 	OkResponse(w, r, returnValue)
 }
 
-func (c *Veiculo) HandleDeleteVeiculo(w http.ResponseWriter, r *http.Request) {
+func (c *Veiculo) handleDeleteVeiculo(w http.ResponseWriter, r *http.Request) {
 	rawID := chi.URLParam(r, "id")
 	if rawID == "" {
 		BadRequestResponse(w, r, errors.New("missing id"))
@@ -96,7 +96,7 @@ func (c *Veiculo) HandleDeleteVeiculo(w http.ResponseWriter, r *http.Request) {
 	NoContentResponse(w, r)
 }
 
-func (c *Veiculo) HandleGetVeiculo(w http.ResponseWriter, r *http.Request) {
+func (c *Veiculo) handleGetVeiculo(w http.ResponseWriter, r *http.Request) {
 	rawID := chi.URLParam(r, "id")
 	if rawID == "" {
 		BadRequestResponse(w, r, errors.New("missing id"))
@@ -118,7 +118,7 @@ func (c *Veiculo) HandleGetVeiculo(w http.ResponseWriter, r *http.Request) {
 	OkResponse(w, r, veiculo)
 }
 
-func (c *Veiculo) HandleListVeiculos(w http.ResponseWriter, r *http.Request) {
+func (c *Veiculo) handleListVeiculos(w http.ResponseWriter, r *http.Request) {
 	var dto models.SearchVeiculo
 
 	err := schema.NewDecoder().Decode(&dto, r.URL.Query())
@@ -137,10 +137,10 @@ func (c *Veiculo) HandleListVeiculos(w http.ResponseWriter, r *http.Request) {
 }
 
 func (c *Veiculo) Routes() {
-	c.API.R.Post("/veiculo", c.HandleInsertVeiculo)
-	c.API.R.Put("/veiculo/{id}", c.HandleUpdateVeiculo)
-	c.API.R.Delete("/veiculo/{id}", c.HandleDeleteVeiculo)
+	c.API.R.Post("/veiculo", c.handleInsertVeiculo)
+	c.API.R.Put("/veiculo/{id}", c.handleUpdateVeiculo)
+	c.API.R.Delete("/veiculo/{id}", c.handleDeleteVeiculo)
 
-	c.API.R.Get("/veiculo/{id}", c.HandleGetVeiculo)
-	c.API.R.Get("/veiculo", c.HandleListVeiculos)
+	c.API.R.Get("/veiculo/{id}", c.handleGetVeiculo)
+	c.API.R.Get("/veiculo", c.handleListVeiculos)
 }
